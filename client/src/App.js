@@ -4,12 +4,16 @@ import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import PlantList from "./components/PlantList";
 import ShoppingCart from "./components/ShoppingCart";
 import CheckoutForm from "./components/CheckoutForm";
+import FormSearch from "./components/FormSearch";
+import { useDarkMode } from './hooks/useDarkMode'
 
 import "./App.css";
 
 function App() {
   // array of plants that have been added to the cart
   const [cart, setCart] = useState([]);
+  const [toSearch, setToSearch] = useState('')
+  const [darkMode, setDarkMode] = useDarkMode(false);
 
   // add a plant to the cart
   const addToCart = (plant) => {
@@ -19,6 +23,11 @@ function App() {
   // remove a plant from the cart
   const removeFromCart = (plant) => {
     setCart(cart.filter((p) => p.id !== plant.id));
+  };
+
+  const toggleDarkMode = e => {
+    e.preventDefault();
+    setDarkMode(!darkMode);
   };
 
   return (
@@ -42,13 +51,25 @@ function App() {
                 </span>
               </NavLink>
             </li>
+            <li>
+              <a onClick={toggleDarkMode}>
+                DarkMode
+                <span className="cart-badge">
+                  {darkMode === true? 'Off' : 'On' }
+                </span>
+              </a>
+            </li>
           </ul>
         </nav>
         <Route
           exact
           path="/"
-          render={() => <PlantList addToCart={addToCart} />}
-        />
+        >
+          <>
+            <FormSearch toSearch = {toSearch} setToSearch={setToSearch}/>
+            <PlantList addToCart={addToCart} toSearch={toSearch}/>
+          </>
+        </Route>
         <Route
           path="/cart"
           render={(props) => (
