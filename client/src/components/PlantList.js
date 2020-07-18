@@ -3,9 +3,46 @@ import axios from "axios";
 
 export default class PlantList extends Component {
   // add state with a property called "plants" - initialize as an empty array
+  state = {
+    plants: []
+  }
 
+  componentDidMount() {
+    axios
+    .get('http://localhost:3333/plants')
+    .then(res => {
+      this.setState({
+        plants: res.data.plantsData
+      })
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.toSearch !== this.props.toSearch) {
+      axios
+      .get('http://localhost:3333/plants')
+      .then(res => {
+        if(this.props.toSearch === '') {
+          this.setState({
+            plants: res.data.plantsData
+          })
+        } else {
+          let newArray = res.data.plantsData.filter(item => {
+            return item.name.toLowerCase().includes(this.props.toSearch.toLowerCase())
+          })
+          this.setState({
+            plants: newArray
+          })
+          
+        
+        }
+        
+      })
+    }
+    
+  }
   // when the component mounts:
-  //   - fetch data from the server endpoint - http://localhost:3333/plants
+  //   - fetch data from the server endpoint - 
   //   - set the returned plants array to this.state.plants
 
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/

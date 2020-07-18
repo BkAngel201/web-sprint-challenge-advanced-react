@@ -29,14 +29,36 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. Explain how to build stateful class components.
+- We need to extend the base react class from React library in our component
+- We set the class constructor and call the super function and set the state values for our component 
+- we use render function to return jsx that we want to show
 
 2. Describe the different phases of the component lifecycle.
+Mount Component, Update Component and Unmount Component
 
 3. Demonstrate an understanding of class component lifecycle methods.
+Mounting:
+- constructor() first called, in here we set our states we use here the super function to access to React.Class methods
+- render() is required, and always called, and is used to print the html output to the page
+- componentDidMount() is called after the first time the component is rendered, here u do anything that need the component to be already in the DOM
+Updating:
+- render()
+- componentDidUpdate() this method will be triggered after any update in the component, if any props or state is changed the component will be re-rendered and after this new render is done the method will be called
+Unmounting: 
+- componentWillUnmount() this method is triggered in the moment that the component is about to be remove from the DOM, in the moment that the component will be unmounted
 
 4. Define stateful logic.
+the stateful logic in the logic that we use in our components that need to be used to manipulate our state values, any logic that use states to work with
 
 5. Describe how to test a React component with React Testing Library.
+- Define the title of our testing to be clear and understand the what we want to do
+- Render the component tha we want to test using render function
+- Select the element that we will be working with using getByRole, getByTestId, etc
+- Fire events on those elements, click, change, submit, etc
+- Check for Functions: event handlers EX: if the onCHange handlers work properly after type anything
+- Any async event that we need to wait for content to render in page
+
+
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 
